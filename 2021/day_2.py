@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 from utils import read_data
 import unittest
 
@@ -19,6 +19,24 @@ def calculate_part_1(input_data: List[str]) -> int:
     return horizontal_position * vertical_position
 
 
+def calculate_part_2(input_data: List[str]) -> int:
+    horizontal_position = 0
+    depth = 0
+    aim = 0
+
+    for row in input_data:
+        instruction, value = row.split()
+        value = int(value)
+        if instruction == 'forward':
+            depth += (value * aim)
+            horizontal_position += value
+        elif instruction == 'down':
+            aim += value
+        else:
+            aim -= value
+    return horizontal_position * depth
+
+
 class UnitTest(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -33,10 +51,16 @@ class UnitTest(unittest.TestCase):
         ]
 
     def test_part_1(self):
-        assert calculate_part_1(self.test_data) == 150
+        self.assertEqual(calculate_part_1(self.test_data), 150)
+
+    def test_part_2(self):
+        result = calculate_part_2(self.test_data)
+        self.assertEqual(result, 900)
 
 
 if __name__ == '__main__':
     data = read_data('day_2')
     part_1_data = calculate_part_1(data)
     print('Part 1: ', part_1_data)
+    part_2_data = calculate_part_2(data)
+    print('Part 2: ', part_2_data)
