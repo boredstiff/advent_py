@@ -2,6 +2,8 @@ import os
 from typing import List
 import unittest
 
+from utils import read_data
+
 
 def calculate_part_1(data: List[int]) -> int:
     increment = 0
@@ -34,11 +36,6 @@ def calculate_part_2(data: List[int]) -> int:
     return calculate_part_1(measurement_windows)
 
 
-def read_data_part_1():
-    with open(os.path.abspath(os.path.join(os.path.dirname(__file__), 'input_data', 'day_1.txt'))) as reader:
-        return [int(i) for i in reader.readlines()]
-
-
 class UnitTest(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -66,7 +63,7 @@ class UnitTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    input_data = read_data_part_1()
+    input_data = read_data('day_1')
     part_1_answer = calculate_part_1(input_data)
     print('Part 1: ', part_1_answer)
     part_2_answer = calculate_part_2(input_data)
