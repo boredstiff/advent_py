@@ -15,6 +15,19 @@ def calculate_part_1(data: str) -> int:
     return result
 
 
+def calculate_part_2(data: str) -> int:
+    position = 0
+
+    for index, each in enumerate(data, start=1):
+        match each:
+            case '(':
+                position += 1
+            case ')':
+                position -= 1
+        if position == -1:
+            return index
+
+
 class UnitTest(unittest.TestCase):
 
     def test_part_1(self):
@@ -28,8 +41,14 @@ class UnitTest(unittest.TestCase):
         assert calculate_part_1(')))') == -3
         assert calculate_part_1(')())())') == -3
 
+    def test_part_2(self):
+        assert calculate_part_2(')') == 1
+        assert calculate_part_2('()())') == 5
+
 
 if __name__ == '__main__':
     input_data = read_data('day_1', year=2015)
     part_1_answer = calculate_part_1(input_data[0])
     print('Part 1: ', part_1_answer)
+    part_2_answer = calculate_part_2(input_data[0])
+    print('Part 2: ', part_2_answer)
